@@ -2,6 +2,8 @@
 
 namespace AddressBookBundle\Controller;
 
+use AddressBookBundle\Entity\Contact;
+use AddressBookBundle\Form\ContactFormType;
 use AddressBookBundle\Repository\ContactRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +26,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="home")
      * @Template()
      */
     public function indexAction()
@@ -34,6 +36,32 @@ class DefaultController extends Controller
         return [
             'contacts' => $contacts,
         ];
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/new-contact", name="create_new_contact")
+     * @Template()
+     *
+     * @return array
+     */
+    public function addAction(Request $request)
+    {
+        $contact = new Contact();
+        $action  = $request->get('_route');
+        $form    = $this->contactForm($contact, $action);
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    private function contactForm(Contact $contact, string $action)
+    {
+        return $this->createForm(ContactFormType::class, $contact, [
+            'action' => $this->generateUrl($action, ['id' => $contact->getId()]),
+            'method' => 'POST',
+        ]);
     }
 
 }

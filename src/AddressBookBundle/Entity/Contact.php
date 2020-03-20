@@ -85,7 +85,7 @@ class Contact
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -93,7 +93,7 @@ class Contact
     /**
      * @return string
      */
-    public function getFirstName(): string
+    public function getFirstName()
     {
         return $this->firstName;
     }
@@ -109,7 +109,7 @@ class Contact
     /**
      * @return string
      */
-    public function getLastName(): string
+    public function getLastName()
     {
         return $this->lastName;
     }
@@ -125,7 +125,7 @@ class Contact
     /**
      * @return Email
      */
-    public function getEmail(): Email
+    public function getEmail()
     {
         return $this->email;
     }
@@ -141,7 +141,7 @@ class Contact
     /**
      * @return Date
      */
-    public function getBirthday(): Date
+    public function getBirthday()
     {
         return $this->birthday;
     }
@@ -173,7 +173,7 @@ class Contact
     /**
      * @return Address
      */
-    public function getAddress(): Address
+    public function getAddress()
     {
         return $this->address;
     }

@@ -62,55 +62,61 @@ class ContactFormType extends AbstractType
                     'label' => 'Picture',
                     'attr'  => [
                         'data-required' => 'false',
+                        'accept'        => ".png, .jpg, .jpeg",
                     ],
                 ]
             )
             ->add(
                 'street',
-                FileType::class,
+                TextType::class,
                 [
-                    'label' => 'Street',
-                    'attr'  => [
+                    'label'  => 'Street',
+                    'mapped' => false,
+                    'attr'   => [
                         'data-required' => 'true',
                     ],
                 ]
             )
             ->add(
                 'country',
-                FileType::class,
+                TextType::class,
                 [
-                    'label' => 'Country',
-                    'attr'  => [
+                    'label'  => 'Country',
+                    'mapped' => false,
+                    'attr'   => [
                         'data-required' => 'true',
                     ],
                 ]
             )
             ->add(
                 'buildingNumber',
-                FileType::class,
+                TextType::class,
                 [
-                    'label' => 'Building Number',
-                    'attr'  => [
+                    'label'  => 'Building Number',
+                    'mapped' => false,
+                    'attr'   => [
                         'data-required' => 'true',
                     ],
                 ]
             )
             ->add(
                 'city',
-                FileType::class,
+                TextType::class,
                 [
-                    'label' => 'City',
-                    'attr'  => [
+                    'label'  => 'City',
+                    'mapped' => false,
+                    'attr'   => [
                         'data-required' => 'true',
                     ],
                 ]
             )
             ->add(
                 'number',
-                FileType::class,
+                TextType::class,
                 [
-                    'label' => 'Number',
-                    'attr'  => [
+                    'label'  => 'Number',
+                    'mapped' => false,
+                    'attr'   => [
                         'data-required' => 'true',
                         'maxlength'     => '20',
                     ],
@@ -120,13 +126,13 @@ class ContactFormType extends AbstractType
                 'countryCode',
                 HiddenType::class,
                 [
-                    'mapped' => true,
-                    'attr'  => [
+                    'mapped' => false,
+                    'attr'   => [
                         'maxlength' => '10',
                     ],
                 ]
             )
-        ;
+            ->getForm();
     }
 
     public function configureOptions(OptionsResolver $resolver)
