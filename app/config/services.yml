@@ -33,3 +33,7 @@ services:
     # AddressBookBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AddressBookBundle\Repository\ContactRepository:
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments: ["AddressBookBundle:Contact"]

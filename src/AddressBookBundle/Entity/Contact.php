@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints\Email;
 /**
  * Contact
  *
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AddressBookBundle\Repository\ContactRepository")
  * @ORM\Table(name="contact")
  */
 class Contact

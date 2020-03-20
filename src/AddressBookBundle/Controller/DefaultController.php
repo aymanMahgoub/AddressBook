@@ -2,20 +2,38 @@
 
 namespace AddressBookBundle\Controller;
 
+use AddressBookBundle\Repository\ContactRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+    /** @var ContactRepository $contactRepository */
+    protected $contactRepository;
+
+    /**
+     * DefaultController constructor.
+     *
+     * @param ContactRepository $contactRepository
+     */
+    public function __construct(ContactRepository $contactRepository)
+    {
+        $this->contactRepository = $contactRepository;
+    }
+
     /**
      * @Route("/", name="homepage")
+     * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-        ]);
+        $contacts = $this->contactRepository->findAll();
+
+        return [
+            'contacts' => $contacts,
+        ];
     }
+
 }
