@@ -2,11 +2,11 @@
 
 namespace AddressBookBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
  * Contact
@@ -76,19 +76,18 @@ class Contact
     protected $address;
 
     /**
+     * @var Phone[]|ArrayCollection $phones
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="contact")
+     *
+     */
+    protected $phones;
+
+    /**
      * @return int
      */
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -185,6 +184,22 @@ class Contact
     public function setAddress(Address $address)
     {
         $this->address = $address;
+    }
+
+    /**
+     * @return Phone[]|ArrayCollection
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * @param Phone[]|ArrayCollection $phones
+     */
+    public function setPhones($phones)
+    {
+        $this->phones = $phones;
     }
 
 }

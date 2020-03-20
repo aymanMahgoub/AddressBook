@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Address
  *
  * @ORM\Entity()
- * @ORM\Table(name="contact")
+ * @ORM\Table(name="address")
  */
 class Address
 {
@@ -64,14 +64,6 @@ class Address
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
     }
 
     /**
