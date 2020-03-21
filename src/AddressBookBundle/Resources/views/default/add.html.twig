@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{%  block stylesheets %}
+{% block stylesheets %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/css/intlTelInput.css" rel="stylesheet">
 {% endblock %}
 {% block body %}
@@ -7,43 +7,57 @@
     <div class="container col-md-12">
         <div class="col-md-12">
             <div class="card card-block">
-                <div class="title-block">
-                    <h3><i class="fa fa-user"></i> New Contact </h3>
-                    <p class="title-description"> add new contact </p>
-                </div>
-                <div class="form-group"><label for="exampleInputEmail1">First
-                        Name</label> {{ form_widget(form.firstName , {'attr':{'class': 'form-control','placeholder': 'first name' }}) }}
-                </div>
-                <div class="form-group"><label class="control-label">Last
-                        Name</label> {{ form_widget(form.lastName , {'attr':{'class': 'form-control','placeholder': 'last name' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">E-mail</label> {{ form_widget(form.email , {'attr':{'class': 'form-control','placeholder': 'email' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">Birthday</label> {{ form_widget(form.birthday, {'attr':{'class': 'form-control','placeholder': 'Birthday' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">Picture</label> {{ form_widget(form.picture, {'attr':{'class': 'form-control','placeholder': 'choose your picture' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">Street</label> {{ form_widget(form.street, {'attr':{'class': 'form-control','placeholder': 'Street' }}) }}
-                </div>
-                <div class="form-group"><label for="exampleInputPassword1">Repeat
-                        Password</label> {{ form_widget(form.buildingNumber, {'attr':{'class': 'form-control','placeholder': 'Building number' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">Country</label> {{ form_widget(form.country, {'attr':{'class': 'form-control','placeholder': 'Country' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">City</label> {{ form_widget(form.city, {'attr':{'class': 'form-control','placeholder': 'City' }}) }}
-                </div>
-                <div class="form-group"><label
-                            for="exampleInputPassword1">Phone Number</label> {{ form_widget(form.number, {'attr':{'id': 'phone', 'class': 'form-control','placeholder': 'Phone number' }}) }}
-                </div>
-                <input type="hidden" id="countryCode" class="form-control" name="countryCode"/>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="col-md-12">
+                    <div class="title-block">
+                        <h3><i class="fa fa-user"></i> New Contact </h3>
+                        <p class="title-description"> add new contact </p>
+                    </div>
+                    <hr>
+                    <div class="form-group"><label for="exampleInputEmail1">First
+                            Name</label> {{ form_widget(form.firstName , {'attr':{'class': 'form-control','placeholder': 'first name' }}) }}
+                    </div>
+                    <div class="form-group"><label class="control-label">Last
+                            Name</label> {{ form_widget(form.lastName , {'attr':{'class': 'form-control','placeholder': 'last name' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">E-mail</label> {{ form_widget(form.email , {'attr':{'class': 'form-control','placeholder': 'email' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">Birthday</label> {{ form_widget(form.birthday, {'attr':{'class': 'form-control','placeholder': 'Birthday' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">Picture</label> {{ form_widget(form.picture, {'attr':{'class': 'form-control','placeholder': 'choose your picture' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">Street</label> {{ form_widget(form.street, {'attr':{'class': 'form-control','placeholder': 'Street' }}) }}
+                    </div>
+                    <div class="form-group"><label for="exampleInputPassword1">Repeat
+                            Password</label> {{ form_widget(form.buildingNumber, {'attr':{'class': 'form-control','placeholder': 'Building number' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">Country</label> {{ form_widget(form.country, {'attr':{'class': 'form-control','placeholder': 'Country' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">City</label> {{ form_widget(form.city, {'attr':{'class': 'form-control','placeholder': 'City' }}) }}
+                    </div>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">First phone
+                            number</label> {{ form_widget(form.firstNumber, {'attr':{'class': 'form-control','placeholder': 'First phone number' }}) }}
+                    </div>
+                    <input type="hidden" id="firstCountryCode" class="form-control" name="firstCountryCode"/>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">Second phone
+                            number</label> {{ form_widget(form.secondNumber, {'attr':{'class': 'form-control','placeholder': 'Second phone number' }}) }}
+                    </div>
+                    <input type="hidden" id="secondCountryCode" class="form-control" name="secondCountryCode"/>
+                    <div class="form-group"><label
+                                for="exampleInputPassword1">Third phone
+                            number</label> {{ form_widget(form.thirdNumber, {'attr':{'class': 'form-control','placeholder': 'Third phone number' }}) }}
+                    </div>
+                    <input type="hidden" id="thirdCountryCode" class="form-control" name="thirdCountryCode"/>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>

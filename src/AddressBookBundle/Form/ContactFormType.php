@@ -6,7 +6,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,8 +18,7 @@ class ContactFormType extends AbstractType
             'firstName',
             TextType::class,
             [
-                'label' => 'First Name',
-                'attr'  => [
+                'attr' => [
                     'data-required' => 'true',
                 ],
             ]
@@ -29,8 +27,7 @@ class ContactFormType extends AbstractType
                 'lastName',
                 TextType::class,
                 [
-                    'label' => 'Last Name',
-                    'attr'  => [
+                    'attr' => [
                         'data-required' => 'true',
                     ],
                 ]
@@ -39,8 +36,7 @@ class ContactFormType extends AbstractType
                 'email',
                 EmailType::class,
                 [
-                    'label' => 'Email',
-                    'attr'  => [
+                    'attr' => [
                         'data-required' => 'true',
                     ],
                 ]
@@ -49,8 +45,7 @@ class ContactFormType extends AbstractType
                 'birthday',
                 DateType::class,
                 [
-                    'label' => 'Birthday',
-                    'attr'  => [
+                    'attr' => [
                         'data-required' => 'true',
                     ],
                 ]
@@ -59,8 +54,7 @@ class ContactFormType extends AbstractType
                 'picture',
                 FileType::class,
                 [
-                    'label' => 'Picture',
-                    'attr'  => [
+                    'attr' => [
                         'data-required' => 'false',
                         'accept'        => ".png, .jpg, .jpeg",
                     ],
@@ -70,7 +64,6 @@ class ContactFormType extends AbstractType
                 'street',
                 TextType::class,
                 [
-                    'label'  => 'Street',
                     'mapped' => false,
                     'attr'   => [
                         'data-required' => 'true',
@@ -81,7 +74,6 @@ class ContactFormType extends AbstractType
                 'country',
                 TextType::class,
                 [
-                    'label'  => 'Country',
                     'mapped' => false,
                     'attr'   => [
                         'data-required' => 'true',
@@ -92,7 +84,6 @@ class ContactFormType extends AbstractType
                 'buildingNumber',
                 TextType::class,
                 [
-                    'label'  => 'Building Number',
                     'mapped' => false,
                     'attr'   => [
                         'data-required' => 'true',
@@ -103,7 +94,6 @@ class ContactFormType extends AbstractType
                 'city',
                 TextType::class,
                 [
-                    'label'  => 'City',
                     'mapped' => false,
                     'attr'   => [
                         'data-required' => 'true',
@@ -111,10 +101,9 @@ class ContactFormType extends AbstractType
                 ]
             )
             ->add(
-                'number',
+                'firstNumber',
                 TextType::class,
                 [
-                    'label'  => 'Number',
                     'mapped' => false,
                     'attr'   => [
                         'data-required' => 'true',
@@ -123,12 +112,22 @@ class ContactFormType extends AbstractType
                 ]
             )
             ->add(
-                'countryCode',
-                HiddenType::class,
+                'secondNumber',
+                TextType::class,
                 [
                     'mapped' => false,
                     'attr'   => [
-                        'maxlength' => '10',
+                        'maxlength' => '20',
+                    ],
+                ]
+            )
+            ->add(
+                'thirdNumber',
+                TextType::class,
+                [
+                    'mapped' => false,
+                    'attr'   => [
+                        'maxlength' => '20',
                     ],
                 ]
             )
