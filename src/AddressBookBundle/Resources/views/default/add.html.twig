@@ -16,44 +16,56 @@
                     <div class="form-group"><label for="exampleInputEmail1">First
                             Name</label> {{ form_widget(form.firstName , {'attr':{'class': 'form-control','placeholder': 'first name' }}) }}
                     </div>
+                    {{ form_errors(form.firstName) }}
                     <div class="form-group"><label class="control-label">Last
                             Name</label> {{ form_widget(form.lastName , {'attr':{'class': 'form-control','placeholder': 'last name' }}) }}
                     </div>
+                    {{ form_errors(form.lastName) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">E-mail</label> {{ form_widget(form.email , {'attr':{'class': 'form-control','placeholder': 'email' }}) }}
+                                class="control-label">E-mail</label> {{ form_widget(form.email , {'attr':{'class': 'form-control','placeholder': 'email' }}) }}
                     </div>
+                    {{ form_errors(form.email) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">Birthday</label> {{ form_widget(form.birthday, {'attr':{'class': 'form-control','placeholder': 'Birthday' }}) }}
+                                class="control-label">Birthday</label> {{ form_widget(form.birthday, {'attr':{'class': 'form-control','placeholder': 'Birthday' }}) }}
                     </div>
+                    {{ form_errors(form.birthday) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">Picture</label> {{ form_widget(form.picture, {'attr':{'class': 'form-control','placeholder': 'choose your picture' }}) }}
+                                class="control-label">Picture</label> {{ form_widget(form.picture, {'attr':{'class': 'form-control','placeholder': 'choose your picture' }}) }}
                     </div>
+                    {{ form_errors(form.picture) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">Street</label> {{ form_widget(form.street, {'attr':{'class': 'form-control','placeholder': 'Street' }}) }}
+                                class="control-label">Street</label> {{ form_widget(form.street, {'attr':{'class': 'form-control','placeholder': 'Street' }}) }}
                     </div>
-                    <div class="form-group"><label for="exampleInputPassword1">Repeat
-                            Password</label> {{ form_widget(form.buildingNumber, {'attr':{'class': 'form-control','placeholder': 'Building number' }}) }}
+                    {{ form_errors(form.street) }}
+                    <div class="form-group"><label class="control-label"> Building
+                            Number</label> {{ form_widget(form.buildingNumber, {'attr':{'class': 'form-control','placeholder': 'Building number' }}) }}
                     </div>
+                    {{ form_errors(form.buildingNumber) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">Country</label> {{ form_widget(form.country, {'attr':{'class': 'form-control','placeholder': 'Country' }}) }}
+                                class="control-label">Country</label> {{ form_widget(form.country, {'attr':{'class': 'form-control','placeholder': 'Country' }}) }}
                     </div>
+                    {{ form_errors(form.country) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">City</label> {{ form_widget(form.city, {'attr':{'class': 'form-control','placeholder': 'City' }}) }}
+                                class="control-label">City</label> {{ form_widget(form.city, {'attr':{'class': 'form-control','placeholder': 'City' }}) }}
                     </div>
+                    {{ form_errors(form.city) }}
                     <div class="form-group"><label
-                                for="exampleInputPassword1">First phone
+                                class="control-label">First phone
                             number</label> {{ form_widget(form.firstNumber, {'attr':{'class': 'form-control','placeholder': 'First phone number' }}) }}
                     </div>
+                    {{ form_errors(form.firstNumber) }}
                     <input type="hidden" id="firstCountryCode" class="form-control" name="firstCountryCode"/>
                     <div class="form-group"><label
-                                for="exampleInputPassword1">Second phone
+                                class="control-label">Second phone
                             number</label> {{ form_widget(form.secondNumber, {'attr':{'class': 'form-control','placeholder': 'Second phone number' }}) }}
                     </div>
+                    {{ form_errors(form.secondNumber) }}
                     <input type="hidden" id="secondCountryCode" class="form-control" name="secondCountryCode"/>
                     <div class="form-group"><label
-                                for="exampleInputPassword1">Third phone
+                                class="control-label">Third phone
                             number</label> {{ form_widget(form.thirdNumber, {'attr':{'class': 'form-control','placeholder': 'Third phone number' }}) }}
                     </div>
+                    {{ form_errors(form.thirdNumber) }}
                     <input type="hidden" id="thirdCountryCode" class="form-control" name="thirdCountryCode"/>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -3,9 +3,10 @@
 namespace AddressBookBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -43,7 +44,7 @@ class ContactFormType extends AbstractType
             )
             ->add(
                 'birthday',
-                DateType::class,
+                BirthdayType::class,
                 [
                     'attr' => [
                         'data-required' => 'true',
@@ -54,7 +55,8 @@ class ContactFormType extends AbstractType
                 'picture',
                 FileType::class,
                 [
-                    'attr' => [
+                    'required' => false,
+                    'attr'     => [
                         'data-required' => 'false',
                         'accept'        => ".png, .jpg, .jpeg",
                     ],
@@ -82,7 +84,7 @@ class ContactFormType extends AbstractType
             )
             ->add(
                 'buildingNumber',
-                TextType::class,
+                NumberType::class,
                 [
                     'mapped' => false,
                     'attr'   => [
@@ -115,8 +117,9 @@ class ContactFormType extends AbstractType
                 'secondNumber',
                 TextType::class,
                 [
-                    'mapped' => false,
-                    'attr'   => [
+                    'mapped'   => false,
+                    'required' => false,
+                    'attr'     => [
                         'maxlength' => '20',
                     ],
                 ]
@@ -125,8 +128,9 @@ class ContactFormType extends AbstractType
                 'thirdNumber',
                 TextType::class,
                 [
-                    'mapped' => false,
-                    'attr'   => [
+                    'mapped'   => false,
+                    'required' => false,
+                    'attr'     => [
                         'maxlength' => '20',
                     ],
                 ]

@@ -4,25 +4,26 @@ namespace AddressBookBundle\Controller;
 
 use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Form\ContactFormType;
-use AddressBookBundle\Repository\ContactRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AddressBookBundle\Services\ContactService;
+use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
-    /** @var ContactRepository $contactRepository */
-    protected $contactRepository;
+    /** @var ContactService $contactService */
+    protected $contactService;
 
     /**
      * DefaultController constructor.
      *
-     * @param ContactRepository $contactRepository
+     * @param ContactService $contactService
      */
-    public function __construct(ContactRepository $contactRepository)
+    public function __construct(ContactService $contactService)
     {
-        $this->contactRepository = $contactRepository;
+        $this->contactService = $contactService;
     }
 
     /**
@@ -31,7 +32,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $contacts = $this->contactRepository->findAll();
+        $contacts = $this->contactService->getAllContacts();
 
         return [
             'contacts' => $contacts,
@@ -50,7 +51,16 @@ class DefaultController extends Controller
         $contact = new Contact();
         $action  = $request->get('_route');
         $form    = $this->contactForm($contact, $action);
-
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+            try {
+                $this->contactService->saveContact($contact, $request);
+            } catch (InvalidArgumentException $exception) {
+               dump('Invalid');die;
+            }
+        }
+        dump($request, $form, $form->isSubmitted());die;
         return [
             'form' => $form->createView(),
         ];

@@ -2,11 +2,11 @@
 
 namespace AddressBookBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\Email;
+
 
 /**
  * Contact
@@ -44,7 +44,7 @@ class Contact
     protected $lastName;
 
     /**
-     * @var email
+     * @var string
      *
      * @ORM\Column(name="email", type="string", length=100, nullable=false)
      * @Assert\Email()
@@ -53,7 +53,7 @@ class Contact
     protected $email;
 
     /**
-     * @var Date
+     * @var DateTime
      * @ORM\Column(name="birthday", type="date", nullable=false )
      * @Assert\Date()
      *
@@ -123,7 +123,7 @@ class Contact
     }
 
     /**
-     * @return Email
+     * @return string
      */
     public function getEmail()
     {
@@ -131,15 +131,15 @@ class Contact
     }
 
     /**
-     * @param Email $email
+     * @param string $email
      */
-    public function setEmail(Email $email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
 
     /**
-     * @return Date
+     * @return DateTime
      */
     public function getBirthday()
     {
@@ -147,9 +147,9 @@ class Contact
     }
 
     /**
-     * @param Date $birthday
+     * @param DateTime $birthday
      */
-    public function setBirthday(Date $birthday)
+    public function setBirthday(DateTime $birthday)
     {
         $this->birthday = $birthday;
     }
