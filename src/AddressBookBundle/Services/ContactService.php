@@ -4,7 +4,8 @@ namespace AddressBookBundle\Services;
 
 use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Repository\ContactRepository;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\NonUniqueResultException;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Class ContactService
@@ -16,8 +17,19 @@ class ContactService
     /** @var ContactRepository $contactRepository */
     protected $contactRepository;
 
-    public function __construct(ContactRepository $contactRepository)
-    {
+    /** @var AddressService $addressService */
+    protected $addressService;
+
+    /**
+     * ContactService constructor.
+     *
+     * @param ContactRepository $contactRepository
+     * @param AddressService    $addressService
+     */
+    public function __construct(
+        ContactRepository $contactRepository,
+        AddressService $addressService
+    ) {
         $this->contactRepository = $contactRepository;
     }
 
@@ -30,13 +42,17 @@ class ContactService
     }
 
     /**
-     * @param Contact $contact
-     * @param Request $request
+     * @param Contact       $contact
+     * @param FormInterface $form
      *
      * @return array
+     * @throws NonUniqueResultException
      */
-    public function saveContact(Contact $contact, Request $request)
+    public function saveContact(Contact $contact, FormInterface $form)
     {
+        $address = $this->addressService->getContactAddress($form);
+        $contact->setAddress($address);
+
         dump($contact, $request);die;
         return [
             'success' => true,

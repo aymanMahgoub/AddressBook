@@ -37,3 +37,7 @@ services:
     AddressBookBundle\Repository\ContactRepository:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments: ["AddressBookBundle:Contact"]
+
+    AddressBookBundle\Repository\AddressRepository:
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments: ["AddressBookBundle:Address"]
