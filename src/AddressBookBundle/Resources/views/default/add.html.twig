@@ -49,24 +49,19 @@
                                 class="control-label">City</label> {{ form_widget(form.city, {'attr':{'class': 'form-control','placeholder': 'City' }}) }}
                     </div>
                     {{ form_errors(form.city) }}
-                    <div class="form-group"><label
-                                class="control-label">First phone
-                            number</label> {{ form_widget(form.firstNumber, {'attr':{'class': 'form-control','placeholder': 'First phone number' }}) }}
+                    <div class="form-group" id="phones"
+                         data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}"
+                         data-index="{{ form.phones|length }}">
+                        <label class="control-label">Phones</label>
+                        <a href="#" id="phone-add">
+                            <span class="fa fa-plus-circle"></span>
+                            Add Another phone
+                        </a>
                     </div>
-                    {{ form_errors(form.firstNumber) }}
-                    <input type="hidden" id="firstCountryCode" class="form-control" name="firstCountryCode"/>
-                    <div class="form-group"><label
-                                class="control-label">Second phone
-                            number</label> {{ form_widget(form.secondNumber, {'attr':{'class': 'form-control','placeholder': 'Second phone number' }}) }}
-                    </div>
-                    {{ form_errors(form.secondNumber) }}
-                    <input type="hidden" id="secondCountryCode" class="form-control" name="secondCountryCode"/>
-                    <div class="form-group"><label
-                                class="control-label">Third phone
-                            number</label> {{ form_widget(form.thirdNumber, {'attr':{'class': 'form-control','placeholder': 'Third phone number' }}) }}
-                    </div>
-                    {{ form_errors(form.thirdNumber) }}
-                    <input type="hidden" id="thirdCountryCode" class="form-control" name="thirdCountryCode"/>
+                    {{ form_errors(form.phones) }}
+                    <input type="hidden" id="CountryCode_0" class="form-control" name="CountryCode_0"/>
+                    <input type="hidden" id="CountryCode_1" class="form-control" name="CountryCode_1"/>
+                    <input type="hidden" id="CountryCode_2" class="form-control" name="CountryCode_2"/>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>

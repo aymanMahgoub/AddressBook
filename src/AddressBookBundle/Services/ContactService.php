@@ -47,13 +47,14 @@ class ContactService
      *
      * @return array
      * @throws NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function saveContact(Contact $contact, FormInterface $form)
     {
         $address = $this->addressService->getContactAddress($form);
         $contact->setAddress($address);
 
-        dump($contact, $request);die;
+        dump($contact, $form);die;
         return [
             'success' => true,
         ];

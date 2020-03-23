@@ -5,7 +5,7 @@ namespace AddressBookBundle\Services;
 use AddressBookBundle\Entity\Address;
 use AddressBookBundle\Repository\AddressRepository;
 use Doctrine\ORM\NonUniqueResultException;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -47,10 +47,6 @@ class AddressService
     {
         /** @var Address $address */
         $address        = $this->hydrateAddress($form);
-        $isValidAddress = $this->isValidAddress($address);
-        if ($isValidAddress !== true) {
-            throw new InvalidArgumentException('Invalid Address: '.$isValidAddress['errors']);
-        }
         $address = $this->addressRepository->findAddress($address) ?? $address;
 
         return $address;
@@ -68,14 +64,14 @@ class AddressService
         $address->setCountry($form->get('country'));
         $address->setStreet($form->get('street'));
         $address->setBuildingNumber($form->get('buildingNumber'));
+        $this->isValidAddress($address);
 
         return $address;
     }
 
     /**
      * @param Address $address
-     *
-     * @return array|bool
+     * @throws InvalidArgumentException
      */
     private function isValidAddress(Address $address)
     {
@@ -90,12 +86,8 @@ class AddressService
                 ];
             }
 
-            return [
-                'errors' => json_decode($errors),
-            ];
+            throw new InvalidArgumentException('Invalid Address: '.json_decode($errors));
         }
-
-        return true
     }
 
 }

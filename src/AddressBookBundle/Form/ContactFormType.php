@@ -4,6 +4,7 @@ namespace AddressBookBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -102,39 +103,11 @@ class ContactFormType extends AbstractType
                     ],
                 ]
             )
-            ->add(
-                'firstNumber',
-                TextType::class,
-                [
-                    'mapped' => false,
-                    'attr'   => [
-                        'data-required' => 'true',
-                        'maxlength'     => '20',
-                    ],
-                ]
-            )
-            ->add(
-                'secondNumber',
-                TextType::class,
-                [
-                    'mapped'   => false,
-                    'required' => false,
-                    'attr'     => [
-                        'maxlength' => '20',
-                    ],
-                ]
-            )
-            ->add(
-                'thirdNumber',
-                TextType::class,
-                [
-                    'mapped'   => false,
-                    'required' => false,
-                    'attr'     => [
-                        'maxlength' => '20',
-                    ],
-                ]
-            )
+            ->add('phones',CollectionType::class, [
+                'allow_add' => true,
+                'by_reference' => false,
+                'label' => false,
+            ])
             ->getForm();
     }
 

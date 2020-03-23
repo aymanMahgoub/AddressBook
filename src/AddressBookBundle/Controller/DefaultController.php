@@ -5,6 +5,7 @@ namespace AddressBookBundle\Controller;
 use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Form\ContactFormType;
 use AddressBookBundle\Services\ContactService;
+use Doctrine\ORM\NonUniqueResultException;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,6 +46,7 @@ class DefaultController extends Controller
      * @Template()
      *
      * @return array
+     * @throws NonUniqueResultException
      */
     public function addAction(Request $request)
     {
@@ -60,7 +62,6 @@ class DefaultController extends Controller
                dump('Invalid');die;
             }
         }
-        dump($request, $form, $form->isSubmitted());die;
         return [
             'form' => $form->createView(),
         ];
