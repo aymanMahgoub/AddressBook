@@ -6,6 +6,7 @@ use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Form\ContactFormType;
 use AddressBookBundle\Services\ContactService;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -47,6 +48,7 @@ class DefaultController extends Controller
      *
      * @return array
      * @throws NonUniqueResultException
+     * @throws OptimisticLockException
      */
     public function addAction(Request $request)
     {
@@ -59,7 +61,7 @@ class DefaultController extends Controller
             try {
                 $this->contactService->saveContact($contact, $form);
             } catch (InvalidArgumentException $exception) {
-               dump('Invalid');die;
+               dump('Invalid'. $exception);die;
             }
         }
         return [

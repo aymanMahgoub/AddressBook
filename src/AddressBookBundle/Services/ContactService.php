@@ -5,6 +5,7 @@ namespace AddressBookBundle\Services;
 use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Repository\ContactRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -20,18 +21,24 @@ class ContactService
     /** @var AddressService $addressService */
     protected $addressService;
 
+    /** @var PhoneService $phoneService */
+    protected $phoneService;
+
     /**
      * ContactService constructor.
      *
      * @param ContactRepository $contactRepository
      * @param AddressService    $addressService
+     * @param PhoneService      $phoneService
      */
     public function __construct(
         ContactRepository $contactRepository,
-        AddressService $addressService
+        AddressService $addressService,
+        PhoneService $phoneService
     ) {
         $this->contactRepository = $contactRepository;
         $this->addressService    = $addressService;
+        $this->phoneService      = $phoneService;
     }
 
     /**
@@ -46,18 +53,16 @@ class ContactService
      * @param Contact       $contact
      * @param FormInterface $form
      *
-     * @return array
      * @throws NonUniqueResultException
-     * @throws NonUniqueResultException
+     * @throws OptimisticLockException
      */
     public function saveContact(Contact $contact, FormInterface $form)
     {
-        $address = $this->addressService->getContactAddress($form);
+        $address      = $this->addressService->getContactAddress($form);
+        $phoneNumbers = $this->phoneService->getContactPhones($contact, $form);
         $contact->setAddress($address);
-
-        return [
-            'success' => true,
-        ];
+        $contact->setPhones($phoneNumbers);
+        $this->contactRepository->saveContact($contact);
     }
 
 }

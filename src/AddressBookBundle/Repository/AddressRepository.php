@@ -44,4 +44,12 @@ class AddressRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param Address $address
+     */
+    public function persistAddress(Address $address)
+    {
+        $this->_em->persist($address);
+    }
+
 }

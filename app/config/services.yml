@@ -41,3 +41,7 @@ services:
     AddressBookBundle\Repository\AddressRepository:
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments: ["AddressBookBundle:Address"]
+
+    AddressBookBundle\Repository\PhoneRepository:
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments: ["AddressBookBundle:Phone"]

@@ -67,6 +67,7 @@ class AddressService
 
         $this->isValidAddress($address);
 
+        $this->addressRepository->persistAddress($address);
         return $address;
     }
 
