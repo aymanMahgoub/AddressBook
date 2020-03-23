@@ -60,10 +60,11 @@ class AddressService
     private function hydrateAddress(FormInterface $form)
     {
         $address = new Address();
-        $address->setCity($form->get('city'));
-        $address->setCountry($form->get('country'));
-        $address->setStreet($form->get('street'));
-        $address->setBuildingNumber($form->get('buildingNumber'));
+        $address->setCity($form['city']->getData());
+        $address->setCountry($form['country']->getData());
+        $address->setStreet($form['street']->getData());
+        $address->setBuildingNumber($form['buildingNumber']->getData());
+
         $this->isValidAddress($address);
 
         return $address;

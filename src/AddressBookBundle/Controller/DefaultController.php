@@ -57,7 +57,7 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $contact = $form->getData();
             try {
-                $this->contactService->saveContact($contact, $request);
+                $this->contactService->saveContact($contact, $form);
             } catch (InvalidArgumentException $exception) {
                dump('Invalid');die;
             }

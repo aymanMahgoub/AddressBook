@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -107,6 +108,15 @@ class ContactFormType extends AbstractType
                 'allow_add' => true,
                 'by_reference' => false,
                 'label' => false,
+            ])
+            ->add('CountryCode_0', HiddenType::class, [
+                    'mapped' => false,
+                ])
+            ->add('CountryCode_1', HiddenType::class, [
+                'mapped' => false,
+            ])
+            ->add('CountryCode_2', HiddenType::class, [
+                'mapped' => false,
             ])
             ->getForm();
     }

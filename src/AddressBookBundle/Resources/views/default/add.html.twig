@@ -53,15 +53,15 @@
                          data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}"
                          data-index="{{ form.phones|length }}">
                         <label class="control-label">Phones</label>
+                        {% for phone in form.phones %}
+                            {{ form_widget(form.phones) }}
+                            {{ form_errors(form.phones) }}
+                        {% endfor %}
                         <a href="#" id="phone-add">
                             <span class="fa fa-plus-circle"></span>
                             Add Another phone
                         </a>
                     </div>
-                    {{ form_errors(form.phones) }}
-                    <input type="hidden" id="CountryCode_0" class="form-control" name="CountryCode_0"/>
-                    <input type="hidden" id="CountryCode_1" class="form-control" name="CountryCode_1"/>
-                    <input type="hidden" id="CountryCode_2" class="form-control" name="CountryCode_2"/>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>

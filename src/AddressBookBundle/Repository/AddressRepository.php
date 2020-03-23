@@ -6,7 +6,6 @@ use AddressBookBundle\Entity\Address;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 
-
 class AddressRepository extends EntityRepository
 {
     /**
@@ -18,23 +17,28 @@ class AddressRepository extends EntityRepository
     public function findAddress(Address $address)
     {
         $queryBuilder = $this->createQueryBuilder('address');
-        $query        = $queryBuilder->select()
+        $query        = $queryBuilder->select('address')
             ->where(
                 $queryBuilder->expr()
-                    ->eq('address.city', $address->getCity())
+                    ->eq('address.city', ':city')
             )
+            ->setParameter('city', $address->getCity())
             ->andWhere(
                 $queryBuilder->expr()
-                    ->eq('address.county', $address->getCountry())
+                    ->eq('address.country', ':country')
             )
+            ->setParameter('country', $address->getCountry())
             ->andWhere(
                 $queryBuilder->expr()
-                    ->eq('address.street', $address->getStreet())
+                    ->eq('address.street', ':street')
             )
+            ->setParameter('street', $address->getStreet())
             ->andWhere(
                 $queryBuilder->expr()
-                    ->eq('address.buildingNumber', $address->getBuildingNumber())
-            );
+                    ->eq('address.buildingNumber', ':buildingNumber')
+            )
+            ->setParameter('buildingNumber', $address->getBuildingNumber())
+        ;
 
         return $query->getQuery()
             ->getOneOrNullResult();

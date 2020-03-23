@@ -31,6 +31,7 @@ class ContactService
         AddressService $addressService
     ) {
         $this->contactRepository = $contactRepository;
+        $this->addressService    = $addressService;
     }
 
     /**
@@ -54,7 +55,6 @@ class ContactService
         $address = $this->addressService->getContactAddress($form);
         $contact->setAddress($address);
 
-        dump($contact, $form);die;
         return [
             'success' => true,
         ];
