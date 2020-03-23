@@ -57,10 +57,12 @@
                             {{ form_widget(form.phones) }}
                             {{ form_errors(form.phones) }}
                         {% endfor %}
-                        <a href="#" id="phone-add">
-                            <span class="fa fa-plus-circle"></span>
-                            Add Another phone
-                        </a>
+                        {% if  form.phones|length  < 2 %}
+                            <a href="#" id="phone-add">
+                                <span class="fa fa-plus-circle"></span>
+                                Add Another phone
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
