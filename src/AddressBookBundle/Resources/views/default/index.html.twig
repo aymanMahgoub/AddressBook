@@ -37,13 +37,12 @@
                             <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.firstName }}</td>
                             <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.lastName }}</td>
                             <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.email }}</td>
-                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.birthday }}</td>
-                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.birthday }}</td>
+                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.birthday|date('Y-m-d') }}</td>
                             <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.picture }}</td>
-                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.street }}</td>
-                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.buildingNumber }}</td>
-                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.county }}</td>
-                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.countryCode . contact.number }}</td>
+                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.address.street }}</td>
+                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.address.buildingNumber }}</td>
+                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.address.country }}</td>
+{#                            <td data-toggle="modal" data-target="#user-{{ contact.id }}">{{ contact.countryCode . contact.number }}</td>#}
                             <td>
                                 <div class="tasks-block pull-md-right">
                                     <ul class="item-list">
@@ -60,16 +59,14 @@
                                                     </a>
                                                     <div class="item-actions-block">
                                                         <ul class="item-actions-list">
-                                                            {% if (app.user.id != user.id) %}
-                                                                <li>
-                                                                    <a class="remove"
-                                                                       href="{{ path('/', {'id': user.id}) }}"
-                                                                       onclick="return confirm('Are you sure you want to delete this Admin ?');">
-                                                                        <i class="fa fa-trash-o"></i></a>
-                                                                </li>
-                                                            {% endif %}
                                                             <li>
-                                                                <a class="edit" href="{{ path('/',{'id':user.id}) }}">
+                                                                <a class="remove"
+                                                                   href="#"
+                                                                   onclick="return confirm('Are you sure you want to delete this Contact ?');">
+                                                                    <i class="fa fa-trash-o"></i></a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="edit" href="#">
                                                                     <i class="fa fa-pencil"></i> </a>
                                                             </li>
                                                         </ul>
