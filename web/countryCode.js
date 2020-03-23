@@ -6,51 +6,16 @@ jQuery(document).ready(function ($) {
         let index = $wrapper.data('index');
         let newForm = prototype.replace(/__name__/g, index);
         $wrapper.data('index', index + 1);
-        if (index > 2) {
+        if (index >= 2) {
             $("#phone-add").hide();
-        } else {
-            $(this).before(newForm);
         }
-        let countryCode = 'de';
-        $("#contact_form_phones_0").intlTelInput({
-            separateDialCode: true,
-            preferredCountries: ['eg', 'de'],
-            initialCountry: countryCode.toLowerCase(),
-            autoHideDialCode: true
-        });
-        $("#contact_form_phones_1").intlTelInput({
-            separateDialCode: true,
-            preferredCountries: ['eg', 'de'],
-            initialCountry: countryCode.toLowerCase(),
-            autoHideDialCode: true
-        });
-        $("#contact_form_phones_2").intlTelInput({
-            separateDialCode: true,
-            preferredCountries: ['eg', 'de'],
-            initialCountry: countryCode.toLowerCase(),
-            autoHideDialCode: true
-        });
+        $(this).before(newForm);
+        preparePhone("#contact_form_phones_"+index);
     });
 
-    let countryCode = 'de';
-    $("#contact_form_phones_0").intlTelInput({
-        separateDialCode: true,
-        preferredCountries: ['eg', 'de'],
-        initialCountry: countryCode.toLowerCase(),
-        autoHideDialCode: true
-    });
-    $("#contact_form_phones_1").intlTelInput({
-        separateDialCode: true,
-        preferredCountries: ['eg', 'de'],
-        initialCountry: countryCode.toLowerCase(),
-        autoHideDialCode: true
-    });
-    $("#contact_form_phones_2").intlTelInput({
-        separateDialCode: true,
-        preferredCountries: ['eg', 'de'],
-        initialCountry: countryCode.toLowerCase(),
-        autoHideDialCode: true
-    });
+    preparePhone("#contact_form_phones_0");
+    preparePhone("#contact_form_phones_1");
+    preparePhone("#contact_form_phones_2");
 
     let firstCountryData = $("#contact_form_phones_0").intlTelInput("getSelectedCountryData");
     $("#contact_form_CountryCode_0").val('+' + firstCountryData.dialCode);
@@ -76,4 +41,17 @@ jQuery(document).ready(function ($) {
         $("#contact_form_phones_2").change();
     });
 
+    function preparePhone(phoneName) {
+        let countryCode = 'de';
+
+        $(phoneName).intlTelInput({
+            separateDialCode: true,
+            preferredCountries: ['eg', 'de'],
+            initialCountry: countryCode.toLowerCase(),
+            autoHideDialCode: true
+        });
+        // $("#contact_form_phones_0").intlTelInput("setNumber", "+44 7733 123 456");
+    }
 });
+
+
