@@ -72,9 +72,6 @@ class DefaultController extends Controller
 
                 return $this->redirect($this->generateUrl('home'));
             } catch (InvalidArgumentException $exception) {
-                return [
-                    'form' => $form->createView(),
-                ];
                 dump('Invalid'. $exception);die;
             }
         }
@@ -89,6 +86,20 @@ class DefaultController extends Controller
             'action' => $this->generateUrl($action, ['id' => $contact->getId()]),
             'method' => 'POST',
         ]);
+    }
+
+    /**
+     * @param int $contactId
+     * @Route("/{contactId}/delete", name="delete-contact")
+     * @Template()
+     *
+     *
+     * @return RedirectResponse
+     */
+    public function deleteContact(int $contactId)
+    {
+        $this->contactService->deleteContact($contactId);
+        return $this->redirect($this->generateUrl('home'));
     }
 
 }

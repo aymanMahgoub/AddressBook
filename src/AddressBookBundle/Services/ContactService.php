@@ -6,6 +6,7 @@ use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Repository\ContactRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
+use InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -63,6 +64,26 @@ class ContactService
         $contact->setAddress($address);
         $contact->setPhones($phoneNumbers);
         $this->contactRepository->saveContact($contact);
+    }
+
+    /**
+     * @param int $contactId
+     *
+     * @return InvalidArgumentException
+     */
+    public function deleteContact(int $contactId)
+    {
+        /** @var Contact $contact */
+        $contact = $this->contactRepository->find($contactId);
+        if (!$contact) {
+            return new InvalidArgumentException('there is no contact with this id: '.$contactId.'in system');
+        }
+        $contactAddress     = $contact->getAddress();
+        $allAddressContacts = $this->contactRepository->findBy(['address' => $contactAddress]);
+        if (count($allAddressContacts) == 1) {
+            $this->addressService->deleteAddress($contactAddress);
+        }
+        $this->contactRepository->delete($contact);
     }
 
 }

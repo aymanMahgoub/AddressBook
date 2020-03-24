@@ -94,4 +94,12 @@ class AddressService
         }
     }
 
+    /**
+     * @param Address $address
+     */
+    public function deleteAddress(Address $address)
+    {
+        $this->addressRepository->delete($address);
+    }
+
 }

@@ -2,19 +2,16 @@
 
 namespace Application\Migrations;
 
-use Doctrine\DBAL\Migrations\AbortMigrationException;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20200320142820 extends AbstractMigration
+class Version20200324011336 extends AbstractMigration
 {
     /**
      * @param Schema $schema
-     *
-     * @throws AbortMigrationException
      */
     public function up(Schema $schema)
     {
@@ -30,8 +27,6 @@ class Version20200320142820 extends AbstractMigration
 
     /**
      * @param Schema $schema
-     *
-     * @throws AbortMigrationException
      */
     public function down(Schema $schema)
     {

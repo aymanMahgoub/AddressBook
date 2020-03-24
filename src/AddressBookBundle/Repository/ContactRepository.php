@@ -19,4 +19,16 @@ class ContactRepository extends EntityRepository
         $this->_em->flush();
     }
 
+    /**
+     * @param Contact $contact
+     *
+     * @throws OptimisticLockException
+     */
+    public function delete(Contact $contact)
+    {
+        $this->_em->remove($contact);
+        $this->_em->flush();
+
+    }
+
 }

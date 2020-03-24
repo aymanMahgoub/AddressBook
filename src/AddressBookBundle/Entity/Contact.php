@@ -77,7 +77,7 @@ class Contact
 
     /**
      * @var Phone[]|ArrayCollection $phones
-     * @ORM\OneToMany(targetEntity="Phone", mappedBy="contact")
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="contact", cascade={"remove"})
      * @Assert\Count(max=3 , maxMessage="You can add up to 3 phone only")
      *
      */

@@ -5,6 +5,7 @@ namespace AddressBookBundle\Repository;
 use AddressBookBundle\Entity\Address;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 
 class AddressRepository extends EntityRepository
 {
@@ -50,6 +51,17 @@ class AddressRepository extends EntityRepository
     public function persistAddress(Address $address)
     {
         $this->_em->persist($address);
+    }
+
+    /**
+     * @param Address $address
+     *
+     * @throws OptimisticLockException
+     */
+    public function delete(Address $address)
+    {
+        $this->_em->remove($address);
+        $this->_em->flush();
     }
 
 }
