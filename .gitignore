@@ -18,3 +18,4 @@
 /.idea/
 app/sqlite.db
 /web/upload/*
+.phpunit.result.cache

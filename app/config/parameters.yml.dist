@@ -13,3 +13,4 @@ parameters:
     mailer_user: ~
     mailer_password: ~
     secret: ThisTokenIsNotSoSecretChangeIt
+    upload_path: '%kernel.project_dir%/web/upload/'

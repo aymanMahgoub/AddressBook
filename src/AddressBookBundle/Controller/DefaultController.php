@@ -98,6 +98,12 @@ class DefaultController extends Controller
         ];
     }
 
+    /**
+     * @param Contact $contact
+     * @param string  $action
+     *
+     * @return FormInterface
+     */
     private function contactForm(Contact $contact, string $action)
     {
         return $this->createForm(ContactFormType::class, $contact, [

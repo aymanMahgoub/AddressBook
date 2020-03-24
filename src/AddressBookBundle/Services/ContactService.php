@@ -61,10 +61,15 @@ class ContactService
     /**
      * @param int $contactId
      *
+     * @return int
      * @throws OptimisticLockException
      */
     public function deleteContact(int $contactId)
     {
+        if ($contactId === -1)
+        {
+            return -1;
+        }
         /** @var Contact $contact */
         $contact = $this->contactRepository->find($contactId);
         if (!$contact) {
