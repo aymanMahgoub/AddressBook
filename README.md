@@ -1,6 +1,6 @@
 Address Book
 ========================
-- All about contacts.
+- All about contacts. creat using Symfony 3.4, Doctrine with SQLite, Twig, PHP 7.0
 
 # install
 - composer install
