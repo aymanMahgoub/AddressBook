@@ -46,8 +46,12 @@ class AddressService
     public function getContactAddress(FormInterface $form)
     {
         /** @var Address $address */
-        $address        = $this->hydrateAddress($form);
-        $address = $this->addressRepository->findAddress($address) ?? $address;
+        $address = $this->hydrateAddress($form);
+        $contactAddress = $this->addressRepository->findAddress($address);
+        if (!empty($contactAddress)) {
+            return $contactAddress[0];
+        }
+        $this->addressRepository->persistAddress($address);
 
         return $address;
     }
@@ -60,14 +64,12 @@ class AddressService
     private function hydrateAddress(FormInterface $form)
     {
         $address = new Address();
-        $address->setCity($form['city']->getData());
-        $address->setCountry($form['country']->getData());
-        $address->setStreet($form['street']->getData());
-        $address->setBuildingNumber($form['buildingNumber']->getData());
-
+        $address->setCity($form->get('city')->getData());
+        $address->setCountry($form->get('country')->getData());
+        $address->setStreet($form->get('street')->getData());
+        $address->setBuildingNumber($form->get('buildingNumber')->getData());
         $this->isValidAddress($address);
 
-        $this->addressRepository->persistAddress($address);
         return $address;
     }
 

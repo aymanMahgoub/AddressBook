@@ -5,13 +5,11 @@
     {% endfor %}
     <div class="container col-md-12">
         <div class="col-md-12">
-            <div class="card card-default">
-                <div class="card-block">
+            <div class="card card-block">
                     <div class="header-header">
                         <h3><i class="fa fa-users"></i> Contacts </h3>
                         <p class="title-description"> All Contacts </p>
                     </div>
-                    <hr>
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -36,7 +34,9 @@
                                 <td>{{ contact.lastName }}</td>
                                 <td>{{ contact.email }}</td>
                                 <td>{{ contact.birthday|date('Y-m-d') }}</td>
-                                <td>{{ contact.picture }}</td>
+                                <td>
+                                    <img src="upload/{{ contact.picture }}" alt="contact photo" width="80" height="80">
+                                </td>
                                 <td>{{ contact.address.street }}</td>
                                 <td>{{ contact.address.buildingNumber }}</td>
                                 <td>{{ contact.address.country }}</td>
@@ -67,7 +67,6 @@
                     </table>
                     <div class="card-footer"></div>
                 </div>
-            </div>
         </div>
     </div>
 {% endblock %}

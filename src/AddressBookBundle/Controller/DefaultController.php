@@ -10,6 +10,7 @@ use Doctrine\ORM\OptimisticLockException;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -46,7 +47,8 @@ class DefaultController extends Controller
      * @Route("/new-contact", name="create_new_contact")
      * @Template()
      *
-     * @return array
+     *
+     * @return array|RedirectResponse
      * @throws NonUniqueResultException
      * @throws OptimisticLockException
      */
@@ -59,9 +61,21 @@ class DefaultController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $contact = $form->getData();
             try {
+                $file = $form->get('picture')->getData();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $file->move(
+                    $this->getParameter("upload_path"),
+                    $fileName
+                );
+                $contact->setPicture($fileName);
                 $this->contactService->saveContact($contact, $form);
+
+                return $this->redirect($this->generateUrl('home'));
             } catch (InvalidArgumentException $exception) {
-               dump('Invalid'. $exception);die;
+                return [
+                    'form' => $form->createView(),
+                ];
+                dump('Invalid'. $exception);die;
             }
         }
         return [

@@ -16,5 +16,5 @@
 /vendor/
 /web/bundles/
 /.idea/
-/app/sqlite.db
-
+app/sqlite.db
+/web/upload/*

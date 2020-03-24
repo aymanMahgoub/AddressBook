@@ -38,10 +38,10 @@ class AddressRepository extends EntityRepository
                     ->eq('address.buildingNumber', ':buildingNumber')
             )
             ->setParameter('buildingNumber', $address->getBuildingNumber())
+            ->setMaxResults(1)
         ;
 
-        return $query->getQuery()
-            ->getOneOrNullResult();
+        return $query->getQuery()->getResult();
     }
 
     /**

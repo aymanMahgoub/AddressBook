@@ -109,13 +109,13 @@ class ContactFormType extends AbstractType
                 'by_reference' => false,
                 'label' => false,
             ])
-            ->add('CountryCode_0', HiddenType::class, [
+            ->add('countryCode_0', HiddenType::class, [
                     'mapped' => false,
                 ])
-            ->add('CountryCode_1', HiddenType::class, [
+            ->add('countryCode_1', HiddenType::class, [
                 'mapped' => false,
             ])
-            ->add('CountryCode_2', HiddenType::class, [
+            ->add('countryCode_2', HiddenType::class, [
                 'mapped' => false,
             ])
             ->getForm();

@@ -73,14 +73,15 @@ class PhoneService
     private function hydratePhones(FormInterface $form)
     {
         $phoneNumbers = [];
-        $phones = $form['phones']->getData();
+        $phones = $form->get('phones')->getData();
         $phoneCounter = 0;
         foreach ($phones as $phone) {
             $phoneNumber = new Phone();
-            $phoneNumber->setCountryCode($form['CountryCode_'.$phoneCounter]->getData());
+            $phoneNumber->setCountryCode($form['countryCode_'.$phoneCounter]->getData());
             $phoneNumber->setNumber($phone);
             $this->isValidPhoneNumber($phoneNumber);
             $phoneNumbers[] = $phoneNumber;
+            $phoneCounter++;
         }
 
         return $phoneNumbers;
