@@ -164,9 +164,9 @@ class Contact
     }
 
     /**
-     * @param string $picture
+     * @param string|null $picture
      */
-    public function setPicture(string $picture)
+    public function setPicture($picture)
     {
         $this->picture = $picture;
     }

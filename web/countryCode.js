@@ -48,6 +48,5 @@ jQuery(document).ready(function ($) {
         });
         let firstCountryData = $(phoneId).intlTelInput("getSelectedCountryData");
         $(countryCodeId).val('+' + firstCountryData.dialCode);
-        // $("#contact_form_phones_0").intlTelInput("setNumber", "+44 7733 123 456");
     }
 });

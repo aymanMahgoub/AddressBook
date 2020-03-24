@@ -10,7 +10,6 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-
 /**
  * Class PhoneService
  *
@@ -23,7 +22,6 @@ class PhoneService
 
     /** @var ValidatorInterface $validator */
     protected $validator;
-
 
     /**
      * PhoneService constructor.
@@ -49,7 +47,7 @@ class PhoneService
     public function getContactPhones(Contact $contact, FormInterface $form)
     {
         /** @var Phone[] $phones */
-        $phones        = $this->hydratephones($form);
+        $phones        = $this->hydratephones($form, $contact);
         $phoneNumbers  = [];
         /** @var Phone $phone */
         foreach ($phones as $phone) {
@@ -67,16 +65,24 @@ class PhoneService
 
     /**
      * @param FormInterface $form
+     * @param Contact       $contact
      *
      * @return array
      */
-    private function hydratePhones(FormInterface $form)
+    private function hydratePhones(FormInterface $form, Contact $contact)
     {
-        $phoneNumbers = [];
-        $phones = $form->get('phones')->getData();
-        $phoneCounter = 0;
-        foreach ($phones as $phone) {
-            $phoneNumber = new Phone();
+        $phoneNumbers          = [];
+        $allContactPhones      = $this->phoneRepository->findBy(['contact' => $contact]);
+        $allContactPhonesCount = count($allContactPhones);
+        $phones                = $form->get('phones')
+            ->getData();
+        $phoneCounter          = 0;
+        if ($allContactPhones > 0) foreach ($phones as $phone) {
+            if ($phoneCounter > $allContactPhonesCount - 1) {
+                $phoneNumber = new Phone();
+            } else {
+                $phoneNumber = $allContactPhones[$phoneCounter];
+            }
             $phoneNumber->setCountryCode($form['countryCode_'.$phoneCounter]->getData());
             $phoneNumber->setNumber($phone);
             $this->isValidPhoneNumber($phoneNumber);

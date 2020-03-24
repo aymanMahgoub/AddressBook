@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/css/intlTelInput.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+    <div class="container col-md-12">
+        <div class="col-md-12">
+            <div class="card card-block">
+                <div class="col-md-12">
+                    <div class="title-block">
+                        <h3><i class="fa fa-user"></i> Edit Contact </h3>
+                        <p class="title-description"> Edit contact </p>
+                    </div>
+                    <hr>
+                    <div class="form-group"><label for="exampleInputEmail1">First
+                            Name</label> {{ form_widget(form.firstName , {'attr':{'class': 'form-control','placeholder': 'first name' }}) }}
+                    </div>
+                    {{ form_errors(form.firstName) }}
+                    <div class="form-group"><label class="control-label">Last
+                            Name</label> {{ form_widget(form.lastName , {'attr':{'class': 'form-control','placeholder': 'last name' }}) }}
+                    </div>
+                    {{ form_errors(form.lastName) }}
+                    <div class="form-group"><label
+                                class="control-label">E-mail</label> {{ form_widget(form.email , {'attr':{'class': 'form-control','placeholder': 'email' }}) }}
+                    </div>
+                    {{ form_errors(form.email) }}
+                    <div class="form-group"><label
+                                class="control-label">Birthday</label> {{ form_widget(form.birthday, {'attr':{'class': 'form-control','placeholder': 'Birthday' }}) }}
+                    </div>
+                    {{ form_errors(form.birthday) }}
+                    <div class="form-group"><label
+                                class="control-label">Picture</label> {{ form_widget(form.picture, {'attr':{'class': 'form-control','placeholder': 'choose your picture' }}) }}
+                    </div>
+                    {{ form_errors(form.picture) }}
+                    <div class="form-group"><label
+                                class="control-label">Street</label> {{ form_widget(form.street, {'attr':{'class': 'form-control','placeholder': 'Street' }}) }}
+                    </div>
+                    {{ form_errors(form.street) }}
+                    <div class="form-group"><label class="control-label"> Building
+                            Number</label> {{ form_widget(form.buildingNumber, {'attr':{'class': 'form-control','placeholder': 'Building number' }}) }}
+                    </div>
+                    {{ form_errors(form.buildingNumber) }}
+                    <div class="form-group"><label
+                                class="control-label">Country</label> {{ form_widget(form.country, {'attr':{'class': 'form-control','placeholder': 'Country' }}) }}
+                    </div>
+                    {{ form_errors(form.country) }}
+                    <div class="form-group"><label
+                                class="control-label">City</label> {{ form_widget(form.city, {'attr':{'class': 'form-control','placeholder': 'City' }}) }}
+                    </div>
+                    {{ form_errors(form.city) }}
+                    <div class="form-group" id="phones"
+                         data-prototype="{{ form_widget(form.phones.vars.prototype)|e }}"
+                         data-index="{{ form.phones|length }}">
+                        <label class="control-label">Phones</label>
+                        {% for phone in form.phones %}
+                            {{ form_widget(form.phones) }}
+                            {{ form_errors(form.phones) }}
+                        {% endfor %}
+                        {% if  form.phones|length  < 2 %}
+                            <a href="#" id="phone-add">
+                                <span class="fa fa-plus-circle"></span>
+                                Add Another phone
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/js/intlTelInput.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.11/js/intlTelInput-jquery.js"></script>
+    <script src="../countryCode.js"></script>
+{% endblock %}

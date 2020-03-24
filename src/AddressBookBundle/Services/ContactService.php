@@ -43,14 +43,6 @@ class ContactService
     }
 
     /**
-     * @return array
-     */
-    public function getAllContacts()
-    {
-        return $this->contactRepository->findAll();
-    }
-
-    /**
      * @param Contact       $contact
      * @param FormInterface $form
      *
@@ -59,7 +51,7 @@ class ContactService
      */
     public function saveContact(Contact $contact, FormInterface $form)
     {
-        $address      = $this->addressService->getContactAddress($form);
+        $address      = $this->addressService->getContactAddress($contact ,$form);
         $phoneNumbers = $this->phoneService->getContactPhones($contact, $form);
         $contact->setAddress($address);
         $contact->setPhones($phoneNumbers);
@@ -69,14 +61,14 @@ class ContactService
     /**
      * @param int $contactId
      *
-     * @return InvalidArgumentException
+     * @throws OptimisticLockException
      */
     public function deleteContact(int $contactId)
     {
         /** @var Contact $contact */
         $contact = $this->contactRepository->find($contactId);
         if (!$contact) {
-            return new InvalidArgumentException('there is no contact with this id: '.$contactId.'in system');
+            throw new InvalidArgumentException('there is no contact with this id: '.$contactId.'in system');
         }
         $contactAddress     = $contact->getAddress();
         $allAddressContacts = $this->contactRepository->findBy(['address' => $contactAddress]);

@@ -58,6 +58,7 @@ class ContactFormType extends AbstractType
                 FileType::class,
                 [
                     'required' => false,
+                    'data_class' => null,
                     'attr'     => [
                         'data-required' => 'false',
                         'accept'        => ".png, .jpg, .jpeg",

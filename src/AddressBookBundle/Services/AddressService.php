@@ -3,8 +3,10 @@
 namespace AddressBookBundle\Services;
 
 use AddressBookBundle\Entity\Address;
+use AddressBookBundle\Entity\Contact;
 use AddressBookBundle\Repository\AddressRepository;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
 use InvalidArgumentException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -38,15 +40,16 @@ class AddressService
     }
 
     /**
+     * @param Contact       $contact
      * @param FormInterface $form
      *
      * @return Address
      * @throws NonUniqueResultException
      */
-    public function getContactAddress(FormInterface $form)
+    public function getContactAddress(Contact $contact, FormInterface $form)
     {
         /** @var Address $address */
-        $address = $this->hydrateAddress($form);
+        $address = $this->hydrateAddress($form, $contact->getAddress());
         $contactAddress = $this->addressRepository->findAddress($address);
         if (!empty($contactAddress)) {
             return $contactAddress[0];
@@ -58,12 +61,15 @@ class AddressService
 
     /**
      * @param FormInterface $form
+     * @param Address|null  $address
      *
      * @return Address
      */
-    private function hydrateAddress(FormInterface $form)
+    private function hydrateAddress(FormInterface $form, Address $address= null)
     {
-        $address = new Address();
+        if (!$address) {
+            $address = new Address();
+        }
         $address->setCity($form->get('city')->getData());
         $address->setCountry($form->get('country')->getData());
         $address->setStreet($form->get('street')->getData());
@@ -96,6 +102,8 @@ class AddressService
 
     /**
      * @param Address $address
+     *
+     * @throws OptimisticLockException
      */
     public function deleteAddress(Address $address)
     {

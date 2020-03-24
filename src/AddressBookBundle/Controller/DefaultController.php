@@ -3,30 +3,47 @@
 namespace AddressBookBundle\Controller;
 
 use AddressBookBundle\Entity\Contact;
+use AddressBookBundle\Entity\Phone;
 use AddressBookBundle\Form\ContactFormType;
+use AddressBookBundle\Repository\ContactRepository;
 use AddressBookBundle\Services\ContactService;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
+use Exception;
 use InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class DefaultController
+ *
+ * @package AddressBookBundle\Controller
+ */
 class DefaultController extends Controller
 {
     /** @var ContactService $contactService */
     protected $contactService;
 
+    /** @var ContactRepository $contactRepository */
+    protected $contactRepository;
+
     /**
      * DefaultController constructor.
      *
-     * @param ContactService $contactService
+     * @param ContactService    $contactService
+     * @param ContactRepository $contactRepository
      */
-    public function __construct(ContactService $contactService)
-    {
+    public function __construct(
+        ContactService $contactService,
+        ContactRepository $contactRepository
+
+    ) {
         $this->contactService = $contactService;
+        $this->contactRepository = $contactRepository;
     }
 
     /**
@@ -35,7 +52,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $contacts = $this->contactService->getAllContacts();
+        $contacts = $this->contactRepository->findAll();
 
         return [
             'contacts' => $contacts,
@@ -62,17 +79,18 @@ class DefaultController extends Controller
             $contact = $form->getData();
             try {
                 $file = $form->get('picture')->getData();
-                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+                $pictureName = md5(uniqid()).'.'.$file->guessExtension();
                 $file->move(
                     $this->getParameter("upload_path"),
-                    $fileName
+                    $pictureName
                 );
-                $contact->setPicture($fileName);
+                $contact->setPicture($pictureName);
                 $this->contactService->saveContact($contact, $form);
+                $this->addFlash('success', 'Contact added successFully! ');
 
                 return $this->redirect($this->generateUrl('home'));
             } catch (InvalidArgumentException $exception) {
-                dump('Invalid'. $exception);die;
+                $this->addFlash('error', 'Argument invalid or null '. $exception);
             }
         }
         return [
@@ -89,17 +107,87 @@ class DefaultController extends Controller
     }
 
     /**
-     * @param int $contactId
-     * @Route("/{contactId}/delete", name="delete-contact")
-     * @Template()
-     *
+     * @param int $id
+     * @Route("/{id}/delete-contact", name="delete-contact")
      *
      * @return RedirectResponse
      */
-    public function deleteContact(int $contactId)
+    public function deleteContact(int $id)
     {
-        $this->contactService->deleteContact($contactId);
+        try {
+            $this->contactService->deleteContact($id);
+            $this->addFlash('success', 'Contact deleted successFully! ');
+        } catch (Exception $exception) {
+            $this->addFlash('error', 'Something went wrong when deleting contact');
+        }
+
         return $this->redirect($this->generateUrl('home'));
+    }
+
+    /**
+     * @param Request $request
+     * @param int     $id
+     * @Route("/{id}/edit-contact", name="edit-contact")
+     * @Template()
+     *
+     * @return array|RedirectResponse
+     * @throws NonUniqueResultException
+     * @throws OptimisticLockException
+     */
+    public function editAction(Request $request, int $id)
+    {
+        /** @var Contact $contact */
+        $contact     = $this->contactRepository->find($id);
+        $pictureName = $contact->getPicture();
+        $action      = $request->get('_route');
+        $form        = $this->contactForm($contact, $action);
+        $this->setContactFormData($form, $contact);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contact = $form->getData();
+            try {
+                $file = $form->get('picture')
+                    ->getData();
+                if ($file) {
+                    $pictureName = md5(uniqid()).'.'.$file->guessExtension();
+                    $file->move(
+                        $this->getParameter("upload_path"),
+                        $pictureName
+                    );
+                }
+                $contact->setPicture($pictureName);
+                $this->contactService->saveContact($contact, $form);
+                $this->addFlash('success', 'Contact edited successFully! ');
+
+                return $this->redirect($this->generateUrl('home'));
+            } catch (InvalidArgumentException $exception) {
+                $this->addFlash('error', 'Argument invalid or null '. $exception);
+            }
+        }
+
+        return [
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Contact       $contact
+     */
+    private function setContactFormData(FormInterface &$form, Contact $contact)
+    {
+        $address      = $contact->getAddress();
+        $phones       = $contact->getPhones()->toArray();
+        $phoneNumbers = [];
+        $form->get('street')->setData($address->getStreet());
+        $form->get('country')->setData($address->getCountry());
+        $form->get('buildingNumber')->setData($address->getBuildingNumber());
+        $form->get('city')->setData($address->getCity());
+        /** @var Phone $phone */
+        foreach ($phones as $phone) {
+            $phoneNumbers[] = $phone->getCountryCode().$phone->getNumber();
+        }
+        $form->get('phones')->setData($phoneNumbers);
     }
 
 }
